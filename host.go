@@ -13,22 +13,22 @@ type HostConfig struct {
 }
 
 // Load loads configuration from a YAML or JSON file at the specified path
-func (c *HostConfig) Load(path string) error {
+func (c *HostConfig) Load(path string) {
 	const op = "Config.Load" // Operation name for error logging
 
 	// Check if the config file exists
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		// Log and return if the file doesn't exist
 		slog.Error(op + ": config file not found: " + err.Error())
-		return err
+		panic(op + ": config file not found: " + path)
 	}
 
 	// Read and parse the config file into HostConfig struct
 	if err := cleanenv.ReadConfig(path, c); err != nil {
 		// Log and return if reading the config fails
 		slog.Error(op + ": error reading config: " + err.Error())
-		return err
+		panic(op + ": error reading config: " + path)
 	}
 
-	return nil // Successfully loaded configuration
+	return // Successfully loaded configuration
 }

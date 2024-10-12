@@ -23,14 +23,14 @@ func (c *DBConfig) Load(path string) error {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		// Log and return error if the file doesn't exist
 		slog.Error(op + ": config file not found: " + err.Error())
-		return err
+		panic(op + ": config file not found: " + path)
 	}
 
 	// Read and parse the config file into DBConfig struct
 	if err := cleanenv.ReadConfig(path, c); err != nil {
 		// Log and return error if reading config fails
 		slog.Error(op + ": error reading config: " + err.Error())
-		return err
+		panic(op + ": error reading config: " + err.Error())
 	}
 
 	return nil // Successfully loaded the configuration

@@ -62,11 +62,8 @@ import (
 
 func main() {
     var cfg config.Config
-    err := cfg.Load("config.yaml")
-    if err != nil {
-        log.Fatalf("Failed to load config: %v", err)
-    }
-
+    cfg.Load("config.yaml")
+    
     // Use the config
     log.Printf("DB URL: %s", cfg.DB.Url)
 }

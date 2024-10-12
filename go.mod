@@ -1,4 +1,4 @@
-module github.com/TrueIronEnjoyer/config
+module config
 
 go 1.23.2
 
